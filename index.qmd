@@ -1,0 +1,284 @@
+---
+format: 
+  revealjs:
+    chalkboard: true
+    lang: fr
+    theme: ["theme/q-theme.scss"]
+    slide-number: c/t
+    logo: "images/quarto.png"
+    footer: "[https://oousmane.github.io/intro-quarto]([https://oousmane.github.io/intro-quarto)"
+    code-copy: true
+    center-title-slide: false
+    include-in-header: heading-meta.html
+    code-link: true
+    code-overflow: wrap
+    highlight-style: a11y
+    height: 1080
+    width: 1920
+execute: 
+  eval: false
+  echo: true
+---
+
+<h1>Rédaction de documents scientifiques<br> de haute qualité</h1>
+
+<h2>Avec Quarto & RStudio</h2>
+
+<hr>
+
+<h3>Ousmane Ouedraogo, BSc <br>Météorologiste<br>2022-09-19</h3>
+
+![](https://d33wubrfki0l68.cloudfront.net/3215c7166555d2ac02ef678fd025c171f90db23c/4e60a/images/bandone.png){fig-align="right" width="750" height="575"}
+
+## Objectifs pédagogiques
+
+<br>
+
+Ce module est une introduction à la rédaction scientifique avec Quarto & RStudio conçu pour répondre aux objectifs suivants:
+
+-   comprendre ce qu'est Quarto;
+
+-   comprendre les liens entre Quarto et Pandoc;
+
+-   apprendre la syntaxe Pandoc Markdown;
+
+-   apprendre à créer des documents dynamiques avec Quarto via RStudio
+
+-   Publication des résultats et rapports.
+
+## Hello Quarto
+
+<br>
+
+> Quarto® est un système de publication scientifique et technique open source basé sur Pandoc.
+>
+> Il permet de combiner du texte narratif et du code pour produire une sortie élégamment formatée sous forme de documents, de pages Web, d'articles de blog, de livres, etc.
+
+<br>
+
+**Quarto** prend en charge des dizaines de formats de sortie statiques et dynamiques, notamment **HTML, PDF, MS Word, Beamer, des diapositives HTML5**, **des livres**, des **applications Shiny**, des **articles scientifiques, des sites Web, etc.**
+
+Contraire à son prédécesseur **RMarkdown**, Quarto n'est pas intimement lié à **R & RStudio.**
+
+![](images/Screenshot%202022-10-03%20at%2015.32.57.png){fig-align="center"}
+
+## Pourquoi Quarto?
+
+<br>
+
+Tout d'abord il est multi-plateformes, Cross-Langage.
+
+![Auteur :Nick Tierney, https://www.njtierney.com/](https://www.njtierney.com/post/2022/04/11/rmd-to-qmd/imgs/quarto-all.jpeg)
+
+## Pourquoi Quarto?
+
+<br>
+
+Il permet de combiner graphiques, codes, figures et tables pour créer des documents statiques ou interactifs prêts à publier sans connaîtres **Pandoc, Latex ou HTML.**
+
+![Auteur: Allison Horst, https://github.com/allisonhorst/stats-illustrations](images/rmarkdown-illustration.jpeg){fig-align="center" width="1000"}
+
+## Comment ça marche ?
+
+Tout part d'un simple document texte que vous aurez écrit, la magie s'opère en arrière-plan.
+Comme nous l'avons vu avec les sorciers de Alison 😃.
+
+![](https://jthomasmock.github.io/quarto-2hr-webinar/materials/images/qmd-knitr.jpeg)
+
+## L'univers quarto
+
+Quarto n'est pas intimement lié à R ou RStudio.
+On peut utilisé une variété de langage et d'éditeur de texte.
+Mais d'un point de vue pratique RStudio est bien indiqué on le verra de toute façon.
+
+![](https://jthomasmock.github.io/quarto-2hr-webinar/materials/images/horst_quarto_schematic.png)
+
+## Avant de commencer
+
+<br>
+
+Nous avons besoin pour la suite d'avoir :
+
+-   R installé pour ça visiter <https://cloud.r-project.org> et choisir selon votre système d'exploitation
+
+-   RStudio au moins la version v2022.07 pour ça visiter: <https://rstudio.com/products/rstudio/download/>
+
+-   Quarto, la dernière version : <https://quarto.org/docs/get-started/>
+
+<br>
+
+Vous aurez besoin aussi des packages R suivants : `tidyverse` , `palmerpenguins` et `tinytex`
+
+<br>
+
+```{r}
+install.packages(c("tidyverse","palmerpenguens","tinytex"))
+library(tidyverse)
+library(palmerpenguins)
+library(tinytex)
+tinytex::install_tinytex()
+
+
+```
+
+<br>
+
+Pour l'installation, Suivre le guide pdf : "**Installer R & RStudio, Quarto et Tinytex.** Pas à pas."
+
+## RStudio, l'environnement de travail
+
+**Présentation de l'interface.**
+
+![](images/interface-rstudio.png)
+
+## Création de projet
+
+<br>
+
+Nous allons créer un projet **Quarto** pour mieux gérer un document Quarto ou un ensemble de documents, utilisez la commande **Fichier** : **Nouveau Projet**..., indiquez **Nouveau Répertoire**, puis choisissez **Projet Quarto** :
+
+![](https://quarto.org/docs/tools/images/rstudio-new-knitr-project.png)
+
+## Rendu du projet "test"
+
+<br>
+
+Le fichier `test.qmd` est alors votre premier document Quarto.
+Yes 👊🏻.
+
+![](images/paste-B016C862.png)
+
+## Un premier document
+
+<br>
+
+Un document Quarto avec l'extension .qmd (à gauche) avec sa version rendue en HTML (à droite).
+D'autres format sont disponibles comme nous l'avons annoncé plutôt.
+
+![](images/Screenshot%202022-10-04%20at%2021.58.10.png)
+
+## L'entête YAML
+
+<br>
+
+L'entête **Y**et **A**nother **M**arkup **L**angage contrôle le devenir du document, les possibilité sont nombreuses mais voici un cas type de document bien constitué.
+
+``` yaml
+title: "Mon rapport"
+author: "Ousmane Ouedraogo"
+affiliation: "AGRHYMET"
+date: "02 Octobre 2022"
+lang: fr
+format: pdf
+toc: true
+lof: true
+lot: true
+toc-depth: 3
+links-as-notes: true
+number-sections: true
+editor: visual
+bibliography: references.bib
+```
+
+## Markdown
+
+<br>
+
+> **Markdown** est un système de publication et de formattage de texte minimaliste.
+> C'est un langage de balise HTML.
+
+**Quarto** se base sur le langage de balise **Markdown**, rendant ainsi l'édition du texte le plus simple possible.
+Mais on peut tout à fait intégré du code html.
+Pour rendre les choses simples, nous allons utilisés l'Éditeur Visuel de RStudio.
+
+![](images/Markdown-mark.svg.png){fig-align="center" width="800"}
+
+## Formatage de texte
+
+<br>
+
++--------------------------------+----------------------------+
+| Syntaxe Markdown               | Sortie                     |
++================================+============================+
+|     *italique* et **gras**     | *italique* et **gras**     |
++--------------------------------+----------------------------+
+|     exposant^2^ / indice~2~    | exposant^2^ / indice~2~    |
++--------------------------------+----------------------------+
+|     ~~barré~~                  | ~~barré~~                  |
++--------------------------------+----------------------------+
+|     `code`                     | `code`                     |
++--------------------------------+----------------------------+
+
+## Titrage du document
+
+<br>
+
++--------------------+----------------+
+| Syntaxe Markdown   | Sortie         |
++====================+================+
+|     # Titre 1      | # Titre 1      |
++--------------------+----------------+
+|     ## Titre 2     | ## Titre 2     |
++--------------------+----------------+
+|     ### Titre 3    | ### Titre 3    |
++--------------------+----------------+
+|     #### Titre 4   | #### Titre 4   |
++--------------------+----------------+
+|     ##### Titre 5  | ##### Titre 5  |
++--------------------+----------------+
+|     ###### Titre 6 | ###### Titre 6 |
++--------------------+----------------+
+
+## Editeur visuel RStudio
+
+<br>
+
+Ce que nous avons vu jusque là est beaucoup plus pénible.
+L'éditeur visuel est plus interréssant et offre une meilleure productivité.
+Tours rapides et raccourcis claviers.
+
+![](images/Screenshot%202022-10-07%20at%2007.25.39-01.png)
+
+## Editeur visuel RStudio
+
+<br>
+
+L'éditeur visuel donne également des menus des menus de formatage et d'insertions, vous travaillerez aisément comme dans une suite bureautique !
+
+![](images/Screenshot%202022-10-07%20at%2007.26.21-01.png){fig-align="center" width="900"}
+
+## Editeur visuel RStudio
+
+<br>
+
+Vous pouvez également utiliser le raccourci fourre-tout ⌘ / pour insérer à peu près n'importe quoi.
+Exécutez simplement le raccourci puis tapez ce que vous voulez insérer.
+Par exemple:
+
+![](images/Screenshot%202022-10-07%20at%2007.42.06-01.png)
+
+## Partie pratique
+
+<br>
+
+Ecrivons notre premier article.
+
+-   formatage de texte (gras, italique, code, puissance et indice)
+
+-   Insertions : Figures, Tableau, liens, note de bas de page, citation, ...
+
+-   Pour les citations, bonus Zotero, Anystile.io
+
+-   format pdf, html.
+
+-   Equations latex : bonus Mathpix,
+
+## En savoir plus
+
+-   documentation officiel : <https://quarto.org/docs/guide/>
+
+-   ressources web quarto : [awesome quarto](https://github.com/mcanouil/awesome-quarto)
+
+-   documentation [pandoc](https://pandoc.org/MANUAL.html)
+
+-   vidéo youtube sur [quarto](https://youtu.be/yvi5uXQMvu4)
