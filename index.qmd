@@ -6,7 +6,7 @@ format:
     theme: ["theme/q-theme.scss"]
     slide-number: c/t
     logo: "images/quarto.png"
-    footer: "[https://oousmane.github.io/intro-quarto]([https://oousmane.github.io/intro-quarto)"
+    footer: "[https://oousmane.github.io/quarto-slide]([https://oousmane.github.io/quarto-slide)"
     code-copy: true
     center-title-slide: false
     include-in-header: heading-meta.html
